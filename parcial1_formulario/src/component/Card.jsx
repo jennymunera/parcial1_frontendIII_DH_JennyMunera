@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import React from "react";
-import "./Card.css";
+
 
 const Card = ({ nombre, apellido, corredorFavorito, constructorFavorito,pistaFavorita }) => {
     return (

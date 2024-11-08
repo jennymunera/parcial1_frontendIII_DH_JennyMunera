@@ -1,15 +1,14 @@
 import {useState} from "react";
-import styles from "./Formulario.module.css";
-import Card from "./Card";
+import styles from './Formulario.module.css';
+import Card from './Card';
 
 
 
-function Formulario(){
+function Formulario() {
     const [formData, setFormData] = useState({
         nombre:"",
         apellido:"",
         edad:0,
-        email:"",
         corredorFavorito:"",
         constructorFavorito:"",
         pistaFavorita:""
@@ -19,8 +18,8 @@ function Formulario(){
     const [errorMessage, setErrorMessage] = useState('');
 
     const handleChange = (e) => {
-        const { nombre, value } = e.target;
-        setFormData({ ...formData, [nombre]: value });
+        const { name, value } = e.target;
+        setFormData({ ...formData, [name]: value });
     };
     
     const handleSubmit = (e) => {
@@ -42,13 +41,7 @@ function Formulario(){
             setShowCard(false);
             return;
         }
-        const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-        if (!emailPattern.test(formData.email)) {
-            setErrorMessage('Por favor chequea que la información sea correcta');
-            setShowCard(false);
-            return;
-        }
-        if (formData.corredorFavorito.length < 3 || formData.corredorFavorito.startsWith(' ')) {
+        if (formData.corredorFavorito.length < 2 || formData.corredorFavorito.startsWith(' ')) {
             setErrorMessage('Por favor chequea que la información sea correcta');
             setShowCard(false);
             return;
@@ -69,82 +62,73 @@ function Formulario(){
     };
     
     return (
-        <div>
+        <div className={styles.formContainer}>
             <form onSubmit={handleSubmit}>
-                <div>
+                <div className={styles.inputGroup}>
                     <label>Nombre:</label>
                     <input
                         type="text"
-                        name="name"
-                        value={formData.nombre}
+                        name="nombre"
+                        value={formData.name}
                         onChange={handleChange}
                     />
                 </div>
-                <div>
+                <div className={styles.inputGroup}>
                     <label>Apellido:</label>
                     <input
                         type="text"
-                        name="lastName"
-                        value={formData.apellido}
+                        name="apellido"
+                        value={formData.lastName}
                         onChange={handleChange}
                     />
                 </div>
-                <div>
+                <div className={styles.inputGroup}>
                     <label>Edad:</label>
                     <input
                         type="number"
-                        name="age"
-                        value={formData.edad}
+                        name="edad"
+                        value={formData.age}
                         onChange={handleChange}
                     />
                 </div>
-                <div>
-                    <label>Email:</label>
-                    <input
-                        type="email"
-                        name="email"
-                        value={formData.email}
-                        onChange={handleChange}
-                    />
-                </div>
-                <div>
+                <div className={styles.inputGroup}>
                     <label>Corredor Favorito:</label>
                     <input
                         type="text"
-                        name="favoriteDriver"
-                        value={formData.corredorFavorito}
+                        name="corredorFavorito"
+                        value={formData.favoriteDriver}
                         onChange={handleChange}
                     />
                 </div>
-                <div>
+                <div className={styles.inputGroup}>
                     <label>Constructor Favorito:</label>
                     <input
                         type="text"
-                        name="favoriteTeam"
-                        value={formData.constructorFavorito}
+                        name="constructorFavorito"
+                        value={formData.favoriteTeam}
                         onChange={handleChange}
                     />
                 </div>
-                <div>
+                <div className={styles.inputGroup}>
                     <label>Pista Favorita:</label>
                     <input
                         type="text"
-                        name="favoriteTrack"
-                        value={formData.pistaFavorita}
+                        name="pistaFavorita"
+                        value={formData.favoriteTrack}
                         onChange={handleChange}
                     />
                 </div>
-                <button type="submit">Enviar</button>
+            <button type="submit">Enviar</button>
             </form>
-            {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
     
+            {errorMessage && <p className={styles.errorMessage}>{errorMessage}</p>}
             {showCard && (
                 <Card
+                    nombre={formData.nombre}
+                    apellido={formData.apellido}
                     corredorFavorito={formData.corredorFavorito}
                     constructorFavorito={formData.constructorFavorito}
                     pistaFavorita={formData.pistaFavorita}
-                    name={formData.name}
-                    lastName={formData.lastName}
                 />
             )}
         </div>

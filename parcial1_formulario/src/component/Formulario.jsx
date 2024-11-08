@@ -36,7 +36,7 @@ function Formulario() {
             setShowCard(false);
             return;
         }
-        if (parseInt(formData.edad) <= 0 || isNaN(parseInt(formData.edad))) {
+        if (parseInt(formData.edad) <= 18 || isNaN(parseInt(formData.edad))) {
             setErrorMessage('Por favor chequea que la información sea correcta');
             setShowCard(false);
             return;
